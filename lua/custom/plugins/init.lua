@@ -5,6 +5,22 @@
 
 ---@module 'lazy'
 ---@type LazySpec
+
+require('telescope').setup {
+  defaults = {
+    path_display = { 'smart' },
+  },
+}
+
 return {
   'github/copilot.vim',
+
+  -- vim.g.copilot_no_tab_map = true,
+
+  vim.keymap.set('i', '<C-O>', '<Plug>(copilot-accept-word)'),
+  vim.keymap.set('i', '<C-I>', '<Plug>(copilot-accept-line)'),
+  vim.keymap.set('i', '<C-N>', 'copilot#Accept("\\<CR>")', {
+    expr = true,
+    replace_keycodes = false,
+  }),
 }
