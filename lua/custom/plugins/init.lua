@@ -6,6 +6,11 @@
 ---@module 'lazy'
 ---@type LazySpec
 
+-- My own options
+--
+vim.o.colorcolumn = '72,80'
+
+-- Extra plugins
 require('telescope').setup {
   defaults = {
     path_display = { 'smart' },
