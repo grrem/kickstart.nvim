@@ -17,6 +17,68 @@ require('telescope').setup {
   },
 }
 
+-- Term Toggle Function
+local term_buf = nil
+local term_win = nil
+
+function TermToggle(height)
+    if term_win and vim.api.nvim_win_is_valid(term_win) then
+        vim.cmd("hide")
+    else
+        vim.cmd("botright new")
+        local new_buf = vim.api.nvim_get_current_buf()
+        vim.cmd("resize " .. height)
+        if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+            vim.cmd("buffer " .. term_buf) -- go to terminal buffer
+            vim.cmd("bd " .. new_buf) -- cleanup new buffer
+        else
+            vim.cmd("terminal")
+            term_buf = vim.api.nvim_get_current_buf()
+            vim.wo.number = false
+            vim.wo.relativenumber = false
+            vim.wo.signcolumn = "no"
+        end
+    vim.cmd("startinsert!")
+    term_win = vim.api.nvim_get_current_win()
+    end
+end
+
+-- Term Toggle Keymaps
+vim.keymap.set("n", "<leader>tt", ":lua TermToggle(20)<CR>", { noremap = true, silent = true , desc = "Toggle Terminal" })
+-- vim.keymap.set("i", "<A-t>", "<Esc>:lua TermToggle(20)<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("t", "<A-t>", "<C-\\><C-n>:lua TermToggle(20)<CR>", { noremap = true, silent = true })
+
+-- Custom LSP tryout
+-- vim.api.nvim_create_autocmd("FileType", {
+--     pattern = "text",
+--     callback = function()
+--         vim.lsp.start({
+--             name = "example-server",
+--             cmd = { "python", "C:/Users/rdec/ws/lsp_experiment/try_pygls.py" },
+--             root_dir = vim.fn.getcwd(),
+--         })
+--     end,
+-- })
+
+-- -- Alternative LSP setup using lspconfig
+-- local lspconfig = require('lspconfig')
+-- local configs = require('lspconfig.configs')
+--
+-- -- Register the custom server
+-- if not configs.example_server then
+--     configs.example_server = {
+--         default_config = {
+--             cmd = { "python", "C:/Users/rdec/ws/lsp_experiment/try_pygls.py" },
+--             filetypes = { "text" },
+--             root_dir = lspconfig.util.root_pattern(".git") or vim.fn.getcwd,
+--             settings = {},
+--         },
+--     }
+-- end
+--
+-- lspconfig.example_server.setup({})
+
+-- Copilot
 return {
   'github/copilot.vim',
 
@@ -29,3 +91,4 @@ return {
     replace_keycodes = false,
   }),
 }
+
