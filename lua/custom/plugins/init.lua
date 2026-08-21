@@ -13,7 +13,7 @@ vim.o.colorcolumn = '72,80'
 -- Extra plugins
 require('telescope').setup {
   defaults = {
-    path_display = { 'smart' },
+    path_display = { 'truncate' },
   },
 }
 
