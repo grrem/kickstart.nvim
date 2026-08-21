@@ -48,6 +48,11 @@ vim.keymap.set("n", "<leader>tt", ":lua TermToggle(20)<CR>", { noremap = true, s
 -- vim.keymap.set("i", "<A-t>", "<Esc>:lua TermToggle(20)<CR>", { noremap = true, silent = true })
 -- vim.keymap.set("t", "<A-t>", "<C-\\><C-n>:lua TermToggle(20)<CR>", { noremap = true, silent = true })
 
+-- Quickfix mappings
+vim.keymap.set("n", "<leader>co", ":copen<CR>", { noremap = true, silent = true , desc = "Open Quickfix" })
+vim.keymap.set("n", "<leader>cn", ":cnext<CR>", { noremap = true, silent = true , desc = "Next Quickfix" })
+vim.keymap.set("n", "<leader>cp", ":cprev<CR>", { noremap = true, silent = true , desc = "Previous Quickfix" })
+
 -- Custom LSP tryout
 -- vim.api.nvim_create_autocmd("FileType", {
 --     pattern = "text",
